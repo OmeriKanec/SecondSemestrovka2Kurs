@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import src.Main;
+import src.helpers.PlayerProfileChanger;
+import src.models.Player;
 
 import java.io.IOException;
 
@@ -16,6 +18,7 @@ public class CharacterCreationController {
     TextField UsernameInput;
     @FXML
     Button createBtn;
+    private static final int STARTINGMONEY = 500;
     @FXML
     public void initialize() {
 
@@ -23,6 +26,8 @@ public class CharacterCreationController {
 
     public void create() throws IOException {
         String username = UsernameInput.textProperty().getValue();
+        Player p = new Player(username, STARTINGMONEY);
+        PlayerProfileChanger.createAccount(p);
         Stage stage = (Stage) createBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml"));
