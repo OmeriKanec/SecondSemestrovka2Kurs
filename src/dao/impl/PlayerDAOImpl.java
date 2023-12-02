@@ -1,9 +1,10 @@
-package java.dao.impl;
+package src.dao.impl;
 
 
-import java.DataBaseConnection;
-import java.dao.DAO;
-import java.models.Player;
+import dao.DAO;
+import models.Player;
+import src.DataBaseConnection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
