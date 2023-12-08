@@ -3,6 +3,8 @@ package src.helpers;
 import src.models.Player;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerProfileChanger {
     private static final String PATHTOFILEWITHID = "id.txt";
@@ -56,8 +58,26 @@ public class PlayerProfileChanger {
         }
     }
 
-    public static void main(String[] args) {
-        Player p = new Player("fff", 500);
-        createAccount(p);
+    public static List<Player> getAllAccounts() {
+        File folder = new File(PATHTOUSERPROFILESDIRECTORY);
+        List<Player> players = new ArrayList<>();
+        for (File file : folder.listFiles()) {
+            if (file.isFile()) {
+                FileReader fileReader = null;
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                    String[] characterInfo = bufferedReader.readLine().split(",");
+                    Player p = new Player(characterInfo[1], Integer.parseInt(characterInfo[2]));
+                    players.add(p);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return players;
     }
+
+//    public static void main(String[] args) throws IOException {
+//        System.out.println(getAllAccounts().get(1));
+//    }
 }

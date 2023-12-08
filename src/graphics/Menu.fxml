@@ -25,6 +25,6 @@
          </children>
       </GridPane>
       <Text fx:id="money" layoutX="429.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money: " wrappingWidth="129.0000021457672" />
-      <Button fx:id="userBtn" layoutX="429.0" layoutY="22.0" mnemonicParsing="false" onAction="#openCreationMenu" prefHeight="31.0" prefWidth="129.0" text="UserName" />
+      <Button fx:id="userBtn" layoutX="429.0" layoutY="22.0" mnemonicParsing="false" onAction="#openAccountChoosingMenu" prefHeight="31.0" prefWidth="129.0" text="UserName" />
    </children>
 </AnchorPane>

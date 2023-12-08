@@ -40,4 +40,9 @@ public class Player {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    @Override
+    public String toString() {
+        return userName + ", money: " + money;
+    }
 }

@@ -22,10 +22,10 @@ public class MenuController {
 
     }
 
-    public void openCreationMenu() throws IOException {
+    public void openAccountChoosingMenu() throws IOException {
         Stage stage = (Stage) userBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        Parent characterCreation = loader.load(Main.class.getResource("graphics/CharacterCreation.fxml"));
+        Parent characterCreation = loader.load(Main.class.getResource("graphics/AccountChoosingMenu.fxml"));
         Scene scene = new Scene(characterCreation);
         Main.open(stage, scene);
     }
