@@ -63,7 +63,6 @@ public class PlayerProfileChanger {
         List<Player> players = new ArrayList<>();
         for (File file : folder.listFiles()) {
             if (file.isFile()) {
-                FileReader fileReader = null;
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
                     String[] characterInfo = bufferedReader.readLine().split(",");
@@ -75,6 +74,49 @@ public class PlayerProfileChanger {
             }
         }
         return players;
+    }
+
+    public static Player getPlayer(String username, int money) {
+        File folder = new File(PATHTOUSERPROFILESDIRECTORY);
+        for (File file : folder.listFiles()) {
+            if (file.isFile()) {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                    String[] characterInfo = bufferedReader.readLine().split(",");
+                    if (characterInfo[1].equals(username) && Integer.parseInt(characterInfo[2]) == money) {
+                        return new Player(Integer.parseInt(characterInfo[0]), characterInfo[1], Integer.parseInt(characterInfo[2]));
+                    }
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean changeMoney(Player p, int newMoney) {
+        File folder = new File(PATHTOUSERPROFILESDIRECTORY);
+        for (File file : folder.listFiles()) {
+            if (file.isFile()) {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                    String[] characterInfo = bufferedReader.readLine().split(",");
+                    if (characterInfo[1].equals(p.getUserName()) && Integer.parseInt(characterInfo[2]) == p.getMoney()) {
+                        PrintWriter printWriter = new PrintWriter(file);
+                        printWriter.print("");
+                        printWriter.println(characterInfo[0]+ "," + characterInfo[1] + "," + newMoney);
+                        printWriter.flush();
+                        printWriter.close();
+                        return true;
+                    }
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return false;
     }
 
 //    public static void main(String[] args) throws IOException {

@@ -1,6 +1,8 @@
 package src.models;
 
 
+import src.helpers.PlayerProfileChanger;
+
 public class Player {
     private int id;
     private String userName;
@@ -44,5 +46,10 @@ public class Player {
     @Override
     public String toString() {
         return userName + ", money: " + money;
+    }
+
+    public void changeMoneyTo(int newMoney) {
+        PlayerProfileChanger.changeMoney(this, newMoney);
+        this.money = newMoney;
     }
 }

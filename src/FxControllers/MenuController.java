@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import src.Main;
+import src.models.Player;
 
 import java.io.IOException;
 
@@ -17,9 +18,12 @@ public class MenuController {
     @FXML
     Button playBtn;
     @FXML Button userBtn;
+    Player player;
     @FXML
     public void initialize() {
 
+        userBtn.textProperty().setValue();
+        money.textProperty().setValue("money: "+ );
     }
 
     public void openAccountChoosingMenu() throws IOException {
@@ -29,4 +33,6 @@ public class MenuController {
         Scene scene = new Scene(characterCreation);
         Main.open(stage, scene);
     }
+
+
 }

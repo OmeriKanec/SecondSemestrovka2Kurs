@@ -18,13 +18,25 @@ public class AccountChoosingMenuController {
     Button CreateNew;
     @FXML
     ListView CharactersList;
+    Player player;
 
     public void initialize() {
         displayAccounts();
         CharactersList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                // Handle the item clicked action here
-                System.out.println("Clicked item: " + newValue);
+                String[] par = newValue.toString().split(",");
+                String username = par[0];
+                int money = Integer.parseInt(par[1].split(": ")[1]);
+                player = PlayerProfileChanger.getPlayer(username, money);
+                Stage stage = (Stage) CharactersList.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                try {
+                    Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml"));
+                    Scene scene = new Scene(characterCreation);
+                    Main.open(stage, scene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
@@ -41,4 +53,5 @@ public class AccountChoosingMenuController {
         Scene scene = new Scene(characterCreation);
         Main.open(stage, scene);
     }
+
 }
