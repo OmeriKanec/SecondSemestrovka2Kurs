@@ -31,9 +31,11 @@ public class AccountChoosingMenuController {
                 Stage stage = (Stage) CharactersList.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader();
                 try {
-                    Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml"));
+                    Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml").openStream());
                     Scene scene = new Scene(characterCreation);
                     Main.open(stage, scene);
+                    MenuController menuController = (MenuController) loader.getController();
+                    menuController.setPlayer(player);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

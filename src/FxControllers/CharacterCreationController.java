@@ -30,7 +30,9 @@ public class CharacterCreationController {
         PlayerProfileChanger.createAccount(p);
         Stage stage = (Stage) createBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml"));
+        Parent characterCreation = loader.load(Main.class.getResource("graphics/Menu.fxml").openStream());
+        MenuController menuController = loader.getController();
+        menuController.setPlayer(p);
         Scene scene = new Scene(characterCreation);
         Main.open(stage, scene);
     }

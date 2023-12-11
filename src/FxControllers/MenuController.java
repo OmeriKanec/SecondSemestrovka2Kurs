@@ -22,8 +22,6 @@ public class MenuController {
     @FXML
     public void initialize() {
 
-        userBtn.textProperty().setValue();
-        money.textProperty().setValue("money: "+ );
     }
 
     public void openAccountChoosingMenu() throws IOException {
@@ -34,5 +32,12 @@ public class MenuController {
         Main.open(stage, scene);
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+        if (player != null) {
+            userBtn.textProperty().setValue(player.getUserName());
+            money.textProperty().setValue("money: " + player.getMoney());
+        }
+    }
 
 }
