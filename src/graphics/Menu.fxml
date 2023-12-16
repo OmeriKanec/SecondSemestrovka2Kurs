@@ -19,7 +19,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="playBtn" mnemonicParsing="false" text="Play" />
+            <Button fx:id="playBtn" mnemonicParsing="false" text="Play" onAction="#openLobbyChoosingMenu"/>
             <Button fx:id="CharacterBtn" mnemonicParsing="false" text="Character" textAlignment="CENTER" GridPane.rowIndex="1" />
             <Button fx:id="ExitBtn" mnemonicParsing="false" text="Exit" GridPane.rowIndex="2" />
          </children>

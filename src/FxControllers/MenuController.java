@@ -24,12 +24,16 @@ public class MenuController {
 
     }
 
-    public void openAccountChoosingMenu() throws IOException {
+    public void openAccountChoosingMenu() {
         Stage stage = (Stage) userBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        Parent characterCreation = loader.load(Main.class.getResource("graphics/AccountChoosingMenu.fxml"));
-        Scene scene = new Scene(characterCreation);
-        Main.open(stage, scene);
+        try {
+            Parent characterCreation = loader.load(Main.class.getResource("graphics/AccountChoosingMenu.fxml").openStream());
+            Scene scene = new Scene(characterCreation);
+            Main.open(stage, scene);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setPlayer(Player player) {
@@ -37,6 +41,18 @@ public class MenuController {
         if (player != null) {
             userBtn.textProperty().setValue(player.getUserName());
             money.textProperty().setValue("money: " + player.getMoney());
+        }
+    }
+    public void openLobbyChoosingMenu() {
+        Stage stage = (Stage) playBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            Parent characterCreation = loader.load(Main.class.getResource("graphics/LobbyChoosingMenu.fxml").openStream());
+            Scene scene = new Scene(characterCreation);
+            Main.open(stage, scene);
+            //loader.getController()
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

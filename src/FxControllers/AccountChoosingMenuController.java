@@ -1,5 +1,7 @@
 package src.FxControllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +19,7 @@ public class AccountChoosingMenuController {
     @FXML
     Button CreateNew;
     @FXML
-    ListView CharactersList;
+    ListView<Player> CharactersList;
     Player player;
 
     public void initialize() {
@@ -44,9 +46,9 @@ public class AccountChoosingMenuController {
     }
 
     private void displayAccounts() {
-        for (Player p: PlayerProfileChanger.getAllAccounts()) {
-            CharactersList.getItems().add(p);
-        }
+        ObservableList<Player> playerObservableList = FXCollections.observableArrayList();
+        playerObservableList.addAll(PlayerProfileChanger.getAllAccounts());
+        CharactersList.setItems(playerObservableList);
     }
     public void openCreationMenu() throws IOException {
         Stage stage = (Stage) CreateNew.getScene().getWindow();
