@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
-public class Server {
+public class Server extends Thread{
 
     private List<GameRoom> rooms;
     private List<UserConnection> connections;
@@ -18,22 +18,27 @@ public class Server {
         this.connections = new ArrayList<>();
     }
 
-    public void start() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1);
-        while (true) {
-            Socket socket = serverSocket.accept();
-            UserConnection userConnection = new UserConnection(socket, this::addNewRoom, this::addUserToRoom);
+    public void start() {
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(1);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                //System.out.println("conn");
+                UserConnection userConnection = new UserConnection(socket, this::addNewRoom, this::addUserToRoom);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
     }
     
     public void sendToOthersInRoom(UUID uuid, String message) {
-        for (UserConnection userConnection : rooms.get(uuid)) {
-            userConnection.sendMessageToClient(message);
-        }
+
     }
 
     public void removeUnusedRoom() {
-        //
+
     }
     public void addNewRoom(GameRoom room){
         rooms.add(room);
