@@ -36,14 +36,8 @@ public class LobbyCreationController {
     }
 
     public void createNewLobby() {
-        int deathsBeforeFinish;
-        if (deaths.getValue().equals("До первой смерти")){
-            deathsBeforeFinish = 1;
-        } else {
-            deathsBeforeFinish = maxPlayers.getValue() - 1;
-        }
         Room room = new Room(name.getText(), maxPlayers.getValue(), 1, Integer.parseInt(bet.textProperty().getValue()),
-                bulletCount.getValue(), deathsBeforeFinish);
+                bulletCount.getValue(), deaths.getValue());
         ConnectionSingletone.getConnection().sendNewRoomToServer(room);
     }
 }

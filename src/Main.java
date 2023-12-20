@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.FxControllers.MenuController;
-import src.models.Player;
 
 import java.io.IOException;
 

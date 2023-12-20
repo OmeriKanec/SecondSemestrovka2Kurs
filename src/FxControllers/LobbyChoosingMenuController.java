@@ -22,14 +22,16 @@ public class LobbyChoosingMenuController {
     @FXML
     ListView<Room> lobbyList;
     Room room;
-    //Connection connection = ConnectionSingletone.getConnection();
+    Connection connection;
     public void initialize() {
+        connection = ConnectionSingletone.getConnection();
         getAndShowRooms();
+
     }
 
-    private void getAndShowRooms() {
+    public void getAndShowRooms() {
         ObservableList<Room> roomObservableList = FXCollections.observableArrayList();
-       // roomObservableList.addAll(connection.getRooms());
+        roomObservableList.addAll(connection.getRooms());
         lobbyList.setItems(roomObservableList);
     }
     public void openLobbyCreationMenu() {

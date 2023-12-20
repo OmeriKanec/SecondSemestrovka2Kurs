@@ -8,10 +8,10 @@ public class Room {
     private int currentPlayers;
     private int bet;
     private int bulletsCount;
-    private int deathsBeforeFinish;
+    private String deathsBeforeFinish;
     private UUID uuid;
 
-    public Room(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, int deathsBeforeFinish) {
+    public Room(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, String deathsBeforeFinish) {
         this.name = name;
         this.maxPlayers = maxPlayers;
         this.currentPlayers = currentPlayers;
@@ -20,7 +20,7 @@ public class Room {
         this.deathsBeforeFinish = deathsBeforeFinish;
     }
 
-    public Room(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, int deathsBeforeFinish, UUID uuid) {
+    public Room(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, String deathsBeforeFinish, UUID uuid) {
         this.name = name;
         this.maxPlayers = maxPlayers;
         this.currentPlayers = currentPlayers;
@@ -50,11 +50,16 @@ public class Room {
         return bulletsCount;
     }
 
-    public int getDeathsBeforeFinish() {
+    public String getDeathsBeforeFinish() {
         return deathsBeforeFinish;
     }
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    @Override
+    public String toString() {
+        return (name + " bet: " + bet + " players: " + currentPlayers + "/" + maxPlayers + " bullets in revolver: " + bulletsCount + " " + deathsBeforeFinish);
     }
 }

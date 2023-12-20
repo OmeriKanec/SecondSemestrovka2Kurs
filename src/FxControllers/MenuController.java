@@ -47,10 +47,9 @@ public class MenuController {
         Stage stage = (Stage) playBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         try {
-            Parent characterCreation = loader.load(Main.class.getResource("graphics/LobbyChoosingMenu.fxml").openStream());
-            Scene scene = new Scene(characterCreation);
+            Parent lobbyChoosing = loader.load(Main.class.getResource("graphics/LobbyChoosingMenu.fxml").openStream());
+            Scene scene = new Scene(lobbyChoosing);
             Main.open(stage, scene);
-            //loader.getController()
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

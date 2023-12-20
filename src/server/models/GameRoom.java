@@ -12,11 +12,11 @@ public class GameRoom extends Thread {
     private int currentPlayers;
     private int bet;
     private int bulletsCount;
-    private int deathsBeforeFinish;
+    private String deathsBeforeFinish;
     List<UserConnection> connections;
     private UUID uuid;
 
-    public GameRoom(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, int deathsBeforeFinish, UUID uuid) {
+    public GameRoom(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, String deathsBeforeFinish, UUID uuid) {
         this.name = name;
         this.maxPlayers = maxPlayers;
         this.currentPlayers = currentPlayers;
@@ -27,7 +27,7 @@ public class GameRoom extends Thread {
         this.uuid = uuid;
     }
 
-    public GameRoom(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, int deathsBeforeFinish) {
+    public GameRoom(String name, int maxPlayers, int currentPlayers, int bet, int bulletsCount, String deathsBeforeFinish) {
         this.name = name;
         this.maxPlayers = maxPlayers;
         this.currentPlayers = currentPlayers;
@@ -37,6 +37,7 @@ public class GameRoom extends Thread {
         this.connections = new ArrayList<>();
         this.uuid = UUID.randomUUID();
     }
+
 
     @Override
     public void run() {
@@ -63,7 +64,7 @@ public class GameRoom extends Thread {
         return bulletsCount;
     }
 
-    public int getDeathsBeforeFinish() {
+    public String getDeathsBeforeFinish() {
         return deathsBeforeFinish;
     }
 
