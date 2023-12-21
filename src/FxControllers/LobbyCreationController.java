@@ -2,10 +2,17 @@ package src.FxControllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import src.helpers.ConnectionSingletone;
 import src.models.Room;
 
@@ -36,8 +43,28 @@ public class LobbyCreationController {
     }
 
     public void createNewLobby() {
-        Room room = new Room(name.getText(), maxPlayers.getValue(), 1, Integer.parseInt(bet.textProperty().getValue()),
-                bulletCount.getValue(), deaths.getValue());
-        ConnectionSingletone.getConnection().sendNewRoomToServer(room);
+        if ((name.getText().equals("")) || (maxPlayers.getValue().equals("")) || (bet.textProperty().getValue().equals("")) ||
+                (bulletCount.getValue().equals("")) || (deaths.getValue().equals(""))) {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Text("Fill all inputs"));
+                Button button = new Button("OK");
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Stage stage = (Stage) button.getScene().getWindow();
+                        stage.close();
+                    }
+                });
+                dialogVbox.getChildren().add(button);
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+        } else {
+            Room room = new Room(name.getText(), maxPlayers.getValue(), 0, Integer.parseInt(bet.textProperty().getValue()),
+                    bulletCount.getValue(), deaths.getValue());
+            ConnectionSingletone.getConnection().sendNewRoomToServer(room);
+        }
     }
 }
