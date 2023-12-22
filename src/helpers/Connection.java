@@ -96,7 +96,6 @@ public class Connection {
     public String listenForStateChanges () {
         try {
             String[] message = bufferedReader.readLine().split(":");
-            System.out.println(message[0]);
             if (message[0].equals("spin")){
                 return "spin";
             } else if (message[0].equals("dead")) {

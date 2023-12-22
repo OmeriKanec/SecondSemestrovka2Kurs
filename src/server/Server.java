@@ -16,7 +16,6 @@ public class Server extends Thread {
     public Server() {
         this.rooms = new ArrayList<>();
         this.connections = new ArrayList<>();
-        this.addNewRoom(new GameRoom("fwfwf", 2,  100, 2, "До первой смерти"));
     }
 
     public void start() {

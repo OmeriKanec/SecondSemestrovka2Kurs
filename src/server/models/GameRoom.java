@@ -103,9 +103,6 @@ public class GameRoom extends Thread {
             bullets[i] = bullets[i+1];
         }
         bullets[5] = temp;
-        for (int i = 0; i<6; i++){
-            System.out.println(i+":"+bullets[i]);
-        }
     }
 
     public String getGameName() {
@@ -208,7 +205,6 @@ public class GameRoom extends Thread {
     public void setActivePlayerShot() {
                 activePlayerShot = false;
                 boolean dead = false;
-                System.out.println("shooting");
                 if (bullets[0] == 1){
                     dead = true;
                     bullets[0] = 0;

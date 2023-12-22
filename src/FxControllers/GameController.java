@@ -120,7 +120,6 @@ public class GameController extends Thread {
             }
         });
         while (gameGoing) {
-            System.out.println(activePlayer);
             switch (activePlayer) {
                 case 0:
                     revolver.rotateProperty().setValue(45);
@@ -142,7 +141,6 @@ public class GameController extends Thread {
                     break;
             }
             if (activePlayer == playerNumber) {
-                System.out.println("listening as active");
                 String mes = connection.listenForStateChanges();
                 if (mes.equals("alive")) {
                     nextTurn();
@@ -155,15 +153,13 @@ public class GameController extends Thread {
                     nextTurn();
                 }
             } else {
-                System.out.println("listening as passive");
                 String[] mes = connection.listenForStateChanges().split(":");
                 if (mes[0].equals("spin")) {
-                    //make spin sound
+
                 } else if (mes[0].equals("alive")) {
-                    //make misfire sound
+
                     nextTurn();
                 } else if (mes[0].equals("dead")) {
-                    //make sound
                     deadOrAlive[activePlayer] = 0;
                     seats.get(activePlayer).imageProperty().setValue(deadImage);
                     deadCount++;
