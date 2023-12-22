@@ -8,4 +8,7 @@ public class ConnectionSingletone {
         }
         return connection;
     }
+    public static void terminateConnection() {
+        connection = null;
+    }
 }

@@ -1,8 +1,6 @@
 package src.server;
 
-import src.server.Callbacks.AddRoomCallback;
-import src.server.Callbacks.AddUserToRoomCallback;
-import src.server.Callbacks.GetRoomsCallback;
+import src.server.Callbacks.*;
 import src.server.models.GameRoom;
 
 import java.io.*;
@@ -18,6 +16,9 @@ public class UserConnection extends Thread {
     private AddRoomCallback addRoomCallback;
     private AddUserToRoomCallback addUserToRoomCallback;
     private GetRoomsCallback getRoomsCallback;
+    private GetCurrentPlayersCallback getCurrentPlayersCallback;
+    private SpinCallback spinCallback;
+    private ActivePlayerShotCallback activePlayerShotCallback;
 
     public UserConnection(Socket socket, AddRoomCallback addRoomCallback, AddUserToRoomCallback addUserToRoomCallback, GetRoomsCallback getRoomsCallback) {
         this.socket = socket;
@@ -35,19 +36,42 @@ public class UserConnection extends Thread {
     @Override
     public void run() {
             try {
-                while (true) {
+                boolean inRoom = false;
+                while (!inRoom) {
                     String[] messsage = bufferedReader.readLine().split(",");
                     System.out.println(messsage[0]);
                     if (messsage[0].equals("roomListRequest")) {
                         sendGameRooms(getRoomsCallback.getRooms());
                     } else if (messsage[0].equals("newRoom")) {
-                        GameRoom room = new GameRoom(messsage[1], Integer.parseInt(messsage[2]), Integer.parseInt(messsage[3]), Integer.parseInt(messsage[4]),
-                                Integer.parseInt(messsage[5]), messsage[6]);
+                        GameRoom room = new GameRoom(messsage[1], Integer.parseInt(messsage[2]), Integer.parseInt(messsage[3]),
+                                Integer.parseInt(messsage[4]), messsage[5]);
                         room.addUserConnection(this);
                         this.addRoomCallback.AddRoom(room);
+                        inRoom = true;
                     } else if (messsage[0].equals("join")) {
                         UUID uuid = UUID.fromString(messsage[1]);
-                        this.addUserToRoomCallback.addUserToRoom(uuid, this);
+                        System.out.println(uuid);
+                        if (this.addUserToRoomCallback.addUserToRoom(uuid, this)){
+                            inRoom = true;
+                            System.out.println("sending true");
+                            printWriter.println("true");
+                            printWriter.flush();
+                        } else {
+                            printWriter.println("false");
+                            printWriter.flush();
+                        }
+                    }
+                }
+                while (inRoom){
+                    String message = bufferedReader.readLine();
+                    if (message.equals("getCurrentPlayers")){
+                        System.out.println("sendingCurrentPlayers");
+                        printWriter.println(getCurrentPlayersCallback.getCurrentPlayers());
+                        printWriter.flush();
+                    } else if (message.equals("spin")) {
+                        spinCallback.spin();
+                    } else if (message.equals("shoot")) {
+                        activePlayerShotCallback.setActivePlayerShot();
                     }
                 }
             } catch (IOException e) {
@@ -65,7 +89,34 @@ public class UserConnection extends Thread {
         printWriter.flush();
     }
 
-    public void sendMessageToClient(String message) {
+    public void sendCurrentPlayers() {
+        printWriter.println("CurrentPlayers:" + getCurrentPlayersCallback.getCurrentPlayers());
+        printWriter.flush();
+    }
+    public void setGetCurrentPlayersCallback(GetCurrentPlayersCallback getCurrentPlayersCallback) {
+        this.getCurrentPlayersCallback = getCurrentPlayersCallback;
+    }
 
+    public void setSpinCallback(SpinCallback spinCallback) {
+        this.spinCallback = spinCallback;
+    }
+
+    public void setActivePlayerShotCallback(ActivePlayerShotCallback activePlayerShotCallback) {
+        this.activePlayerShotCallback = activePlayerShotCallback;
+    }
+
+    public void sendSpin() {
+        printWriter.println("spin");
+        printWriter.flush();
+    }
+    public void sendShoot(boolean shot, int activePlayer){
+        String state;
+        if (shot){
+            state = "dead";
+        } else {
+            state = "alive";
+        }
+        printWriter.println(state+":"+activePlayer);
+        printWriter.flush();
     }
 }

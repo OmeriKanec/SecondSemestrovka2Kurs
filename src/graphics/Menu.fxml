@@ -19,9 +19,8 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="playBtn" mnemonicParsing="false" text="Play" onAction="#openLobbyChoosingMenu"/>
-            <Button fx:id="CharacterBtn" mnemonicParsing="false" text="Character" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <Button fx:id="ExitBtn" mnemonicParsing="false" text="Exit" GridPane.rowIndex="2" />
+            <Button fx:id="playBtn" mnemonicParsing="false" onAction="#openLobbyChoosingMenu" text="Play" />
+            <Button fx:id="ExitBtn" mnemonicParsing="false" text="Exit" GridPane.rowIndex="2" onAction="#exit"/>
          </children>
       </GridPane>
       <Text fx:id="money" layoutX="429.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money: " wrappingWidth="129.0000021457672" />

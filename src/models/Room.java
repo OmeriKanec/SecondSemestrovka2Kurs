@@ -58,6 +58,10 @@ public class Room {
         return uuid;
     }
 
+    public void setCurrentPlayers(int currentPlayers) {
+        this.currentPlayers = currentPlayers;
+    }
+
     @Override
     public String toString() {
         return (name + " bet: " + bet + " players: " + currentPlayers + "/" + maxPlayers + " bullets in revolver: " + bulletsCount + " " + deathsBeforeFinish);

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class Main extends Application {
         Parent root = loader.load(getClass().getResource("graphics/AccountChoosingMenu.fxml").openStream());
         primaryStage.setTitle("RussianRoulette");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     public static void open(Stage stage, Scene scene) throws IOException {

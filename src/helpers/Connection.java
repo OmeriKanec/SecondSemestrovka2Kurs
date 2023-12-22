@@ -29,8 +29,10 @@ public class Connection {
             String[] str;
             do {
                 str = bufferedReader.readLine().split(",");
-                rooms.add(this.stringToRoom(str));
-            } while (str[0].equals("$"));
+                if (!str[0].equals("$")) {
+                    rooms.add(this.stringToRoom(str));
+                }
+            } while (!str[0].equals("$"));
             return rooms;
         } catch (IOException e) {
             throw new RuntimeException("Not able to get rooms");
@@ -43,7 +45,68 @@ public class Connection {
         return room;
     }
     public void sendNewRoomToServer(Room room) {
-        printWriter.println("newRoom" + "," + room.getName() + "," + room.getMaxPlayers() + "," + room.getCurrentPlayers() + "," +
+        printWriter.println("newRoom" + "," + room.getName() + "," + room.getMaxPlayers() + ","  +
                 room.getBet() + "," + room.getBulletsCount() + "," + room.getDeathsBeforeFinish());
+        printWriter.flush();
+    }
+    public boolean connectToRoom(UUID uuid) {
+        printWriter.println("join" + "," + uuid);
+        printWriter.flush();
+        try {
+            if (bufferedReader.readLine().equals("true")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getCurrentPlayers() {
+        printWriter.println("getCurrentPlayers");
+        printWriter.flush();
+        try {
+            return Integer.parseInt(bufferedReader.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int waitForServerToSendCurrentPlayers() {
+        while (true) {
+            String[] resp = new String[0];
+            try {
+                resp = bufferedReader.readLine().split(":");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (resp[0].equals("CurrentPlayers")){
+                return Integer.parseInt(resp[1]);
+            }
+        }
+    }
+    public void sendCommandToSpin() {
+        printWriter.println("spin");
+        printWriter.flush();
+    }
+    public void sendCommandToShoot() {
+        printWriter.println("shoot");
+        printWriter.flush();
+    }
+    public String listenForStateChanges () {
+        try {
+            String[] message = bufferedReader.readLine().split(":");
+            System.out.println(message[0]);
+            if (message[0].equals("spin")){
+                return "spin";
+            } else if (message[0].equals("dead")) {
+                return ("dead:"+message[1]);
+            } else if (message[0].equals("alive")) {
+                return "alive";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

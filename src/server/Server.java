@@ -16,7 +16,7 @@ public class Server extends Thread {
     public Server() {
         this.rooms = new ArrayList<>();
         this.connections = new ArrayList<>();
-        //this.addNewRoom(new GameRoom("fwfwf", 2, 1, 100, 2, "До первой смерти"));
+        this.addNewRoom(new GameRoom("fwfwf", 2,  100, 2, "До первой смерти"));
     }
 
     public void start() {
@@ -33,27 +33,33 @@ public class Server extends Thread {
         }
 
     }
-    
-    public void sendToOthersInRoom(UUID uuid, String message) {
 
-    }
-
-    public void removeUnusedRoom() {
-
-    }
     public void addNewRoom(GameRoom room){
+        room.setTerminateCallback(this::terminateRoom);
         rooms.add(room);
     }
-    public void addUserToRoom(UUID uuid, UserConnection userConnection){
+    public boolean addUserToRoom(UUID uuid, UserConnection userConnection) {
         for (GameRoom room: rooms) {
-            if (room.getUuid() == uuid){
-                room.addUserConnection(userConnection);
-                break;
+            if (room.getUuid().equals(uuid)) {
+                if (room.addUserConnection(userConnection)){
+                    connections.remove(userConnection);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
+        return false;
     }
     public List<GameRoom> getRooms(){
         return this.rooms;
+    }
+    public void terminateRoom(UUID uuid) {
+        for (GameRoom room : rooms) {
+            if (room.getUuid().equals(uuid)) {
+                rooms.remove(room);
+            }
+        }
     }
 
 }

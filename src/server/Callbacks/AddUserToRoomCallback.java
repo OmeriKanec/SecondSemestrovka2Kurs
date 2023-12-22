@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @FunctionalInterface
 public interface AddUserToRoomCallback {
-    public void addUserToRoom(UUID uuid, UserConnection connection);
+    public boolean addUserToRoom(UUID uuid, UserConnection connection);
 }

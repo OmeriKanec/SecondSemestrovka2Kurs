@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.FxControllers.GameController">
+   <children>
+      <ImageView fx:id="table" fitHeight="300.0" fitWidth="450.0" layoutX="225.0" layoutY="150.0" pickOnBounds="true" />
+      <ImageView fx:id="seat1" fitHeight="90.0" fitWidth="120.0" layoutX="259.5" layoutY="33.0" pickOnBounds="true" />
+      <ImageView fx:id="seat2" fitHeight="90.0" fitWidth="120.0" layoutX="514.5" layoutY="33.0" pickOnBounds="true" />
+      <ImageView fx:id="seat3" fitHeight="90.0" fitWidth="120.0" layoutX="259.5" layoutY="474.0" pickOnBounds="true" />
+      <ImageView fx:id="seat4" fitHeight="90.0" fitWidth="120.0" layoutX="514.5" layoutY="474.0" pickOnBounds="true" />
+      <ImageView fx:id="seat5" fitHeight="90.0" fitWidth="120.0" layoutX="57.0" layoutY="255.0" pickOnBounds="true" rotate="90.0" />
+      <ImageView fx:id="seat6" fitHeight="90.0" fitWidth="120.0" layoutX="730.5" layoutY="255.0" pickOnBounds="true" rotate="270.0" />
+      <ImageView fx:id="revolver" fitHeight="90.0" fitWidth="120.0" layoutX="390.0" layoutY="255.0" pickOnBounds="true" />
+   </children>
+</AnchorPane>

@@ -102,7 +102,7 @@ public class PlayerProfileChanger {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
                     String[] characterInfo = bufferedReader.readLine().split(",");
-                    if (characterInfo[1].equals(p.getUserName()) && Integer.parseInt(characterInfo[2]) == p.getMoney()) {
+                    if (Integer.parseInt(characterInfo[0]) == p.getId()) {
                         PrintWriter printWriter = new PrintWriter(file);
                         printWriter.print("");
                         printWriter.println(characterInfo[0]+ "," + characterInfo[1] + "," + newMoney);

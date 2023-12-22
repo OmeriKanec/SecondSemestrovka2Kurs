@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -13,8 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import src.Main;
 import src.helpers.ConnectionSingletone;
+import src.models.Player;
 import src.models.Room;
+
+import java.io.IOException;
 
 public class LobbyCreationController {
     @FXML
@@ -27,6 +33,8 @@ public class LobbyCreationController {
     ChoiceBox<Integer> bulletCount;
     @FXML
     ChoiceBox<String> deaths;
+    private Room room;
+    private Player player;
 
     public void initialize() {
         ObservableList<Integer> obsMaxPlayers = FXCollections.observableArrayList(2, 3, 4, 5, 6);
@@ -62,9 +70,33 @@ public class LobbyCreationController {
                 dialog.setScene(dialogScene);
                 dialog.show();
         } else {
-            Room room = new Room(name.getText(), maxPlayers.getValue(), 0, Integer.parseInt(bet.textProperty().getValue()),
+             room = new Room(name.getText(), maxPlayers.getValue(), 0, Integer.parseInt(bet.textProperty().getValue()),
                     bulletCount.getValue(), deaths.getValue());
             ConnectionSingletone.getConnection().sendNewRoomToServer(room);
+            openGame();
         }
+    }
+    public void openGame() {
+        Stage stage = (Stage) name.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            Parent lobbyCreation = loader.load(Main.class.getResource("graphics/Game.fxml").openStream());
+            Scene scene = new Scene(lobbyCreation);
+            Main.open(stage, scene);
+            GameController gameController = (GameController) loader.getController();
+            gameController.setRoom(room);
+            gameController.setPlayer(player);
+            gameController.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

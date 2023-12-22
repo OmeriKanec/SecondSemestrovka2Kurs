@@ -4,10 +4,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.FxControllers.LobbyChoosingMenuController">
    <children>
       <ListView fx:id="lobbyList" layoutX="100.0" layoutY="14.0" prefHeight="300.0" prefWidth="400.0" />
-      <Button fx:id="createNew" layoutX="232.0" layoutY="340.0" mnemonicParsing="false" text="Create new lobby" onAction="#openLobbyCreationMenu" />
+      <Button fx:id="createNew" layoutX="232.0" layoutY="340.0" mnemonicParsing="false" onAction="#openLobbyCreationMenu" text="Create new lobby" />
+      <Button fx:id="refresh" layoutX="521.0" layoutY="149.0" mnemonicParsing="false" text="refresh" onAction="#getAndShowRooms"/>
    </children>
 </AnchorPane>
